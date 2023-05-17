@@ -24,3 +24,41 @@
   6. The Account Abstraction Contract executes the transaction.
   7. The Account Abstraction Contract updates the user's account state.
   8. The wallet notifies the user that the transaction has been successfully executed.
+
+## UserOperation
+  - A data structure that represents a user action in JSON format. It contains information such as the sender address, the recipient address, the amount of Ether to be transferred, and the data to be included in the transaction.
+  - A UserOperation is signed by the user with their private key and sent to the Account Abstraction Contract. The Account Abstraction Contract verifies the signature and then executes the transaction.
+  - Following are some of the attributes that can be passed to a user operation
+
+Field | Type | Description
+--- | --- | ---
+**sender** | address | The account making the operation
+**nonce** | uint256 | Data passed into the account along with the nonce during the verification step
+**initCode**	 | bytes | The initCode of the account (needed if and only if the account is not yet on-chain and needs to be created on the fly)
+**callData** | bytes |The data to pass to the sender during the main execution call
+**callGasLimit** | uint256 | The amount of gas to allocate the main execution call
+**verificationGasLimit** | uint256 | The amount of gas to allocate for the verification step
+**preVerificationGas** | uint256 | The amount of gas to pay for to compensate the bundler for pre-verification execution and calldata
+**maxFeePerGas** | uint256 | Maximum fee per gas (similar to EIP-1559 max_fee_per_gas)
+**maxPriorityFeePerGas** | uint256 | Maximum priority fee per gas (similar to EIP-1559 max_priority_fee_per_gas)
+**paymasterAndData** | bytes | 	Address of paymaster sponsoring the transaction, followed by extra data to send to the paymaster (empty for self-sponsored transaction)
+**signature** | bytes | Data passed into the account along with the nonce during the verification step
+
+  ```
+  {
+  "type": "object",
+  "properties": {
+    "sender": {
+      "type": "string",
+      "description": "The address of the user who is sending the transaction"
+    },
+    "nonce": {
+      "type": "int",
+      "description": "Data passed into the account along with the nonce during the verification step"
+    }
+    {
+      .....
+    }
+  }
+}
+```
