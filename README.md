@@ -1,5 +1,8 @@
 # ERC-4337
 
+## Introduction
+  First of all it is not a token. It is a standard for account abstraction, used to create secure, user-friendly wallets.
+
 ## Difference between POW and POS (Consensus layers)
   - POW - Miners have to validate the transaction. Who ever solves it first can add it to the blockchain. Consumes a lot of power.
   - POS - No miners. Validators can stake their tokens. One who has staked a large no of tokens has a high chance of getting selected as a validator.
@@ -24,6 +27,8 @@
   6. The Account Abstraction Contract executes the transaction.
   7. The Account Abstraction Contract updates the user's account state.
   8. The wallet notifies the user that the transaction has been successfully executed.
+
+![](https://s32659.pcdn.co/wp-content/uploads/2023/03/ERC-4337-primer-850x478.jpeg.optimal.jpeg)
 
 ## UserOperation
   - A data structure that represents a user action in JSON format. It contains information such as the sender address, the recipient address, the amount of Ether to be transferred, and the data to be included in the transaction.
@@ -62,3 +67,23 @@ Field | Type | Description
   }
 }
 ```
+
+user operations are basically transactions. Unlike a typical transaction, it contains some more attributes. When making a transaction, userOperations are sent to a place called mempool where all the userOperations are stored in a queue. 
+  - **Standard mempool**: normal txns are stored here where validators / miners fetch and validate them.
+  - **UserOperation mempool**: Only user operations are stored here. Both these mempools can be found in an ethereum node.
+  
+
+## Bundler
+  - The job of the bundler is to bundle (aggregate) a set of user operations into a single transaction and send it to the entry point contract.
+  - This can save users gas fees and improve the overall efficiency of the Ethereum network.
+  - Bundlers can improve the overall efficiency of the Ethereum network by reducing the number of transactions.
+  - Bundler is a service that is provided by a third party that runs on a server. Bundlers are not decentralized and they are not open source.
+
+## Entry Point Contract
+  - The purpose of an entry point contract is to provide a single point of entry for all user operations (Bundle).
+  - The entry point contract is responsible for verifying the signatures on the user operations, updating the user's account state, and notifying the user of the results of the transaction.
+  - Each user operation is validated, and if validate the nonce is incremented, else the txn will be reverted.
+  - Then each user operation is executed one by one refunding any unused gas back to the wallet.
+  
+
+
