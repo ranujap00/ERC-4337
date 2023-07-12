@@ -33,7 +33,8 @@
 ## UserOperation
   - A data structure that represents a user action in JSON format. It contains information such as the sender address, the recipient address, the amount of Ether to be transferred, and the data to be included in the transaction.
   - A UserOperation is signed by the user with their private key and sent to the Account Abstraction Contract. The Account Abstraction Contract verifies the signature and then executes the transaction.
-  - Following are some of the attributes that can be passed to a user operation
+  - Following are some of the attributes that can be passed to a user operation.
+  - User operation is not allowed to access real time data.
 
 Field | Type | Description
 --- | --- | ---
@@ -78,6 +79,8 @@ user operations are basically transactions. Unlike a typical transaction, it con
   - This can save users gas fees and improve the overall efficiency of the Ethereum network.
   - Bundlers can improve the overall efficiency of the Ethereum network by reducing the number of transactions.
   - Bundler is a service that is provided by a third party that runs on a server. Bundlers are not decentralized and they are not open source.
+  - Bundler can either include the bundled user ops to the public mempool or they can send it to specific block buildres.
+  - Bundler has to execute the 'simulate' function to verify the on chain execution before handing it to Entry Point.
 
 ## Entry Point Contract
   - The purpose of an entry point contract is to provide a single point of entry for all user operations (Bundle).
