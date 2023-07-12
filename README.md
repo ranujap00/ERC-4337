@@ -87,6 +87,12 @@ user operations are basically transactions. Unlike a typical transaction, it con
   - The entry point contract is responsible for verifying the signatures on the user operations, updating the user's account state, and notifying the user of the results of the transaction.
   - Each user operation is validated, and if validate the nonce is incremented, else the txn will be reverted.
   - Then each user operation is executed one by one refunding any unused gas back to the wallet.
-  
 
+## Pay Master
+  - Sponsors the transaction gas fee for an account.
+  - Validate the user op by showing the willingness to pay for the operation.
+  - Required to have custom logic for fee payment.
 
+## Aggregator
+  - Used to validate signatures.
+  - Can also aggregate signatures of multiple user operations and validate the aggregates signature.
